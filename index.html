@@ -26,7 +26,7 @@ p {
 }
 .btn {
     display: inline-block;
-    margin-top: 25px;
+    margin-top: 20px;
     padding: 14px 30px;
     background: #25D366;
     color: white;
@@ -45,19 +45,69 @@ p {
     display: inline-block;
     width: 250px;
 }
+.form-box {
+    background: #111827;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 400px;
+    margin: 40px auto;
+}
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    background: #1f2937;
+    color: white;
+}
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #22c55e;
+    color: white;
+    font-weight: 600;
+}
+.urgent {
+    margin-top: 20px;
+    color: #22c55e;
+}
 </style>
 
 </head>
 <body>
 
 <div class="container">
+
     <h1>Get Instant Loan up to ₹50 Lakhs</h1>
     <p>Fast Approval | Trusted | No Hidden Charges</p>
 
+    <!-- WhatsApp CTA -->
     <a class="btn" href="https://wa.me/918969881194?text=Hi%20I%20want%20a%20loan">
         Apply on WhatsApp
     </a>
 
+    <!-- FORM -->
+    <div class="form-box">
+        <h2>Check Your Eligibility</h2>
+
+        <input type="text" id="name" placeholder="Your Name">
+        <input type="text" id="phone" placeholder="Phone Number">
+
+        <select id="loan">
+            <option>Personal Loan</option>
+            <option>Business Loan</option>
+            <option>Home Loan</option>
+            <option>Loan Against Property</option>
+        </select>
+
+        <button onclick="submitForm()">Apply Now</button>
+    </div>
+
+    <!-- SERVICES -->
     <div class="section">
         <h2>Our Loan Services</h2>
 
@@ -67,7 +117,28 @@ p {
         <div class="card">Loan Against Property</div>
     </div>
 
+    <!-- TRUST + URGENCY -->
+    <p class="urgent">🔥 27 people applied today</p>
+    <p class="urgent">⚡ Approval in 24 hours</p>
+
 </div>
+
+<script>
+function submitForm() {
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let loan = document.getElementById("loan").value;
+
+    if(name === "" || phone === "") {
+        alert("Please fill all details");
+        return;
+    }
+
+    let message = `Name: ${name} Phone: ${phone} Loan: ${loan}`;
+
+    window.open(`https://wa.me/918969881194?text=${encodeURIComponent(message)}`, "_blank");
+}
+</script>
 
 </body>
 </html>
