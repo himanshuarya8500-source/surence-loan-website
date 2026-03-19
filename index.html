@@ -1,99 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Surence Pvt Ltd | Official DSA Partner</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surence Pvt Ltd | Official DSA Partner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #030b14;
+            --bg-mid: #071525;
+            --bg-light: #0c1e30;
+            --primary: #00e5a0;
+            --primary-dim: rgba(0,229,160,0.12);
+            --primary-hover: #00c98a;
+            --accent: #3b82f6;
+            --text-main: #f0f6ff;
+            --text-muted: #7a94b0;
+            --glass-bg: rgba(7, 21, 37, 0.85);
+            --glass-border: rgba(255,255,255,0.07);
+            --focus-ring: rgba(0,229,160,0.2);
+            --card-bg: rgba(12,30,48,0.6);
+        }
 
-<meta name="description" content="Apply for instant personal, business & home loans with Surence Pvt Ltd. Fast approval, no hidden charges, trusted DSA partner.">
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'DM Sans', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
 
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999; opacity: 0.4;
+        }
 
-<style>
-body {margin:0;background:#030b14;color:#fff;font-family:'DM Sans';}
-.container {max-width:1200px;margin:auto;padding:80px 5%;}
-h1,h2{font-family:'Sora';}
-.btn{background:#00e5a0;color:#000;padding:14px;border-radius:8px;font-weight:700;border:none;width:100%;cursor:pointer;}
-.form-control{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:none;background:#1e293b;color:white;}
-.form-box{background:#0c1e30;padding:25px;border-radius:15px;}
-.fab{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:15px;border-radius:50%;font-size:22px;text-decoration:none;}
-</style>
+        .grid-bg {
+            position: fixed; inset: 0; z-index: 0;
+            background-image: linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        /* Fade Up Animation Class */
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 5%; position: relative; z-index: 1; }
+        h1, h2, h3 { font-family: 'Sora', sans-serif; color: var(--text-main); }
+        .section-title { text-align: center; font-size: clamp(26px, 4vw, 38px); margin-bottom: 16px; font-weight: 700; letter-spacing: -0.5px; }
+        .section-title span { color: var(--primary); }
+        .section-subtitle { text-align: center; color: var(--text-muted); max-width: 640px; margin: 0 auto 50px auto; font-size: 15.5px; line-height: 1.7; }
+
+        header { position: fixed; top: 0; width: 100%; background: rgba(3,11,20,0.92); backdrop-filter: blur(16px); z-index: 1000; border-bottom: 1px solid var(--glass-border); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 5%; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 800; background: linear-gradient(90deg, #00e5a0, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 14.5px; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta { background: var(--primary) !important; color: #000 !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; font-size: 14px !important; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; color: white; }
+
+        .trust-banner {
+            background: linear-gradient(90deg, rgba(0,229,160,0.08), rgba(59,130,246,0.08));
+            border-bottom: 1px solid var(--glass-border);
+            padding: 10px 0; text-align: center;
+            font-size: 13.5px; font-weight: 500; color: #94aec8;
+            margin-top: 65px; position: relative; z-index: 1;
+        }
+        .trust-banner span { color: var(--primary); font-weight: 700; }
+
+        .hero { display: flex; align-items: center; gap: 60px; min-height: 88vh; padding-top: 40px; }
+        .hero-content { flex: 1; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-dim); border: 1px solid rgba(0,229,160,0.3); color: var(--primary); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.3px; }
+        .hero-badge::before { content: '●'; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .hero-content h1 { font-size: clamp(32px, 5vw, 60px); line-height: 1.12; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero-content h1 .line2 { background: linear-gradient(90deg, #00e5a0, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-content p { font-size: 16.5px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7; max-width: 520px; }
+        
+        .hero-stats { display: flex; gap: 30px; flex-wrap: wrap; }
+        .stat { text-align: left; }
+        .stat-num { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--primary); line-height: 1; }
+        .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+        .form-box { flex: 1; background: var(--glass-bg); backdrop-filter: blur(24px); border: 1px solid var(--glass-border); padding: 38px; border-radius: 24px; max-width: 460px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06); }
+        .form-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+        .form-subtitle { font-size: 13.5px; color: var(--text-muted); margin-bottom: 28px; }
+        .input-group { margin-bottom: 18px; }
+        .input-group label { display: block; margin-bottom: 7px; font-size: 13px; color: var(--text-muted); font-weight: 500; letter-spacing: 0.2px; }
+        .form-control { width: 100%; padding: 14px 16px; border-radius: 10px; border: 1px solid var(--glass-border); background: rgba(3,11,20,0.6); color: var(--text-main); outline: none; font-size: 14.5px; font-family: 'DM Sans', sans-serif; transition: all 0.25s; appearance: none; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--focus-ring); background: rgba(0,229,160,0.03); }
+        select.form-control { background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a94b0' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+        select option { background: #0c1e30; color: white; }
+        
+        .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; padding: 15px 28px; background: var(--primary); color: #000; text-decoration: none; border-radius: 10px; font-weight: 700; cursor: pointer; border: none; transition: all 0.3s ease; width: 100%; font-size: 15px; font-family: 'Sora', sans-serif; letter-spacing: 0.2px; }
+        .btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,229,160,0.3); }
+
+        /* Floating WhatsApp Button */
+        .fab-whatsapp { position: fixed; bottom: 30px; right: 30px; background: #25D366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 30px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.4); text-decoration: none; z-index: 1000; transition: transform 0.3s; }
+        .fab-whatsapp:hover { transform: scale(1.1); }
+
+        /* Footer */
+        footer { background: var(--bg-dark); border-top: 1px solid var(--glass-border); padding: 40px 5%; text-align: center; position: relative; z-index: 1; }
+        footer p { color: var(--text-muted); font-size: 13.5px; line-height: 1.8; max-width: 800px; margin: 0 auto 10px auto; }
+        .disclaimer { font-size: 11px; color: #4a6a85; margin-top: 20px; text-align: justify; }
+
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 20px; gap: 40px; }
+            .hero-content p { margin: 0 auto 28px; }
+            .hero-stats { justify-content: center; }
+            .form-box { max-width: 100%; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 65px; left: 0; width: 100%; background: rgba(3,11,20,0.97); padding: 20px; border-bottom: 1px solid var(--glass-border); }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: block; }
+        }
+    </style>
 </head>
-
 <body>
+<div class="grid-bg"></div>
 
-<div class="container">
+<header>
+    <nav>
+        <div class="logo">Surence</div>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+            <li><a href="#about" onclick="toggleMenu()">Why Us</a></li>
+            <li><a href="#reviews" onclick="toggleMenu()">Reviews</a></li>
+            <li><a href="#home" class="nav-cta" onclick="toggleMenu()">Apply Now</a></li>
+        </ul>
+    </nav>
+</header>
 
-<h1>Get Instant Loan up to ₹50 Lakhs</h1>
-<p>Fast Approval | Trusted | No Hidden Charges</p>
-
-<div class="form-box">
-
-<h2>Check Your Eligibility</h2>
-
-<form id="leadForm" onsubmit="submitLead(event)">
-
-<input id="leadName" class="form-control" placeholder="Full Name" required>
-
-<input id="leadPhone" class="form-control" placeholder="Phone Number" required>
-
-<select id="leadAmount" class="form-control">
-<option>Upto ₹5 Lakh</option>
-<option>₹5L – ₹15L</option>
-<option>₹15L – ₹50L</option>
-<option>₹50L+</option>
-</select>
-
-<select id="leadLoan" class="form-control">
-<option>Personal Loan</option>
-<option>Business Loan</option>
-<option>Home Loan</option>
-<option>Loan Against Property</option>
-</select>
-
-<button id="submitBtn" class="btn">Apply Now</button>
-
-</form>
-
+<div class="trust-banner fade-up">
+    🛡️ Authorized DSA Partner with <span>50+ Top Banks & NBFCs</span> across India &nbsp;|&nbsp; 🔐 100% Secure Process
 </div>
 
-</div>
+<section id="home" class="hero container">
+    <div class="hero-content fade-up">
+        <div class="hero-badge">Live — Instant Eligibility Check</div>
+        <h1>India's Most Trusted<br><span class="line2">Loan Aggregator</span></h1>
+        <p>Why visit 10 banks and risk your CIBIL score? As official DSA partners, we map your profile with India's top lenders — guaranteeing the lowest interest rates and fastest approvals.</p>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-num">₹500Cr+</div>
+                <div class="stat-label">Loans Disbursed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">12,000+</div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num">50+</div>
+                <div class="stat-label">Bank Partners</div>
+            </div>
+        </div>
+    </div>
 
-<a href="https://wa.me/918969881194" class="fab">💬</a>
+    <div class="form-box fade-up">
+        <div class="form-title">Check Your Eligibility</div>
+        <div class="form-subtitle">Free check — No impact on CIBIL score</div>
+        <form id="leadForm" onsubmit="submitLead(event)">
+            <div class="input-group">
+                <label>Full Name (As per PAN)</label>
+                <input type="text" id="leadName" class="form-control" placeholder="E.g. Rahul Sharma" required>
+            </div>
+            <div class="input-group">
+                <label>Mobile Number</label>
+                <input type="tel" id="leadPhone" class="form-control" placeholder="10-digit number" required maxlength="10" pattern="[6-9][0-9]{9}">
+            </div>
+            <div class="input-group">
+                <label>Loan Amount Required</label>
+                <select id="leadAmount" class="form-control">
+                    <option value="Upto ₹5 Lakh">Upto ₹5 Lakh</option>
+                    <option value="₹5L – ₹15L">₹5 Lakh – ₹15 Lakh</option>
+                    <option value="₹15L – ₹50L">₹15 Lakh – ₹50 Lakh</option>
+                    <option value="₹50L+">₹50 Lakh+</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Loan Type Required</label>
+                <select id="leadLoan" class="form-control">
+                    <option value="Personal Loan">Personal Loan</option>
+                    <option value="Business Loan">Business Loan</option>
+                    <option value="Home Loan">Home Loan</option>
+                    <option value="Loan Against Property">Loan Against Property</option>
+                </select>
+            </div>
+            <button type="submit" id="submitBtn" class="btn">Apply Securely Now</button>
+            <div style="text-align: center; margin-top: 15px; font-size: 11px; color: var(--text-muted);">
+                By continuing, you agree to our Terms & Privacy Policy.
+            </div>
+        </form>
+    </div>
+</section>
+
+<a href="https://wa.me/918969881194?text=Hi%20Surence,%20I%20need%20help%20with%20a%20loan." class="fab-whatsapp" target="_blank">
+    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+</a>
+
+<footer>
+    <h2 class="logo" style="margin-bottom: 10px;">Surence</h2>
+    <p>&copy; 2026 Surence Pvt Ltd. All Rights Reserved.</p>
+    <div class="disclaimer">
+        <strong>Disclaimer:</strong> Surence Pvt Ltd acts as a Direct Selling Agent (DSA) and loan aggregator. We do not directly disburse loans. All loan approvals, interest rates, and disbursements are at the sole discretion of our partner Banks and Non-Banking Financial Companies (NBFCs). We do not charge any upfront fees from customers for processing loans. Please beware of fraudulent calls asking for money in the name of loan processing.
+    </div>
+</footer>
 
 <script>
-function submitLead(e){
-e.preventDefault();
+    // Mobile Menu
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
 
-let name=document.getElementById("leadName").value.trim();
-let phone=document.getElementById("leadPhone").value.trim();
-let amount=document.getElementById("leadAmount").value;
-let loan=document.getElementById("leadLoan").value;
-let btn=document.getElementById("submitBtn");
+    // Form Submission Logic
+    function submitLead(event) {
+        event.preventDefault();
+        const name = document.getElementById("leadName").value.trim();
+        const phone = document.getElementById("leadPhone").value.trim();
+        const amount = document.getElementById("leadAmount").value;
+        const loan = document.getElementById("leadLoan").value;
+        const btn = document.getElementById("submitBtn");
 
-// validation
-if(name.length<3){alert("Enter valid name");return;}
-if(!/^[6-9][0-9]{9}$/.test(phone)){alert("Enter valid number");return;}
+        btn.disabled = true;
+        btn.innerText = "Securing Connection...";
 
-// loading
-btn.disabled=true;
-btn.innerText="Processing...";
+        const message = `*🔥 PREMIUM LEAD | SURENCE* \n\n*👤 Name:* ${name}\n*📞 Phone:* +91-${phone}\n*💰 Amount:* ${amount}\n*💼 Loan:* ${loan}\n\n_Please process this file immediately._`;
+        
+        setTimeout(() => {
+            window.open(`https://wa.me/918969881194?text=${encodeURIComponent(message)}`, "_blank");
+            btn.disabled = false;
+            btn.innerText = "Apply Securely Now";
+            document.getElementById("leadForm").reset();
+        }, 1000);
+    }
 
-let msg=`🔥 NEW LOAN LEAD
+    // Scroll Animation Observer (Fade Up effect)
+    document.addEventListener("DOMContentLoaded", function() {
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
 
-Name: ${name}
-Phone: ${phone}
-Amount: ${amount}
-Loan: ${loan}`;
-
-setTimeout(()=>{
-window.open(`https://wa.me/918969881194?text=${encodeURIComponent(msg)}`,"_blank");
-btn.disabled=false;
-btn.innerText="Apply Now";
-document.getElementById("leadForm").reset();
-},800);
-}
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    });
 </script>
-
 </body>
 </html>
