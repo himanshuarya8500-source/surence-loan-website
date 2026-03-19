@@ -4,245 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surence Pvt Ltd | Official DSA Partner</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-dark: #04080f;
-            --bg-light: #0a111f;
-            --primary: #10b981;
-            --primary-hover: #059669;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --glass-bg: rgba(17, 24, 39, 0.8);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --focus-ring: rgba(16, 185, 129, 0.25);
+            --bg-dark: #030b14;
+            --bg-mid: #071525;
+            --bg-light: #0c1e30;
+            --primary: #00e5a0;
+            --primary-dim: rgba(0,229,160,0.12);
+            --primary-hover: #00c98a;
+            --accent: #3b82f6;
+            --text-main: #f0f6ff;
+            --text-muted: #7a94b0;
+            --glass-bg: rgba(7, 21, 37, 0.85);
+            --glass-border: rgba(255,255,255,0.07);
+            --focus-ring: rgba(0,229,160,0.2);
+            --card-bg: rgba(12,30,48,0.6);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-font-smoothing: antialiased; }
-        body { background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; scroll-behavior: smooth; }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'DM Sans', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 80px 5%; }
-        h1, h2, h3 { color: var(--text-main); }
-        .section-title { text-align: center; font-size: clamp(28px, 4vw, 36px); margin-bottom: 20px; }
+        /* Grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999; opacity: 0.4;
+        }
+
+        /* Grid BG */
+        .grid-bg {
+            position: fixed; inset: 0; z-index: 0;
+            background-image: linear-gradient(rgba(0,229,160,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,160,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 5%; position: relative; z-index: 1; }
+        h1, h2, h3 { font-family: 'Sora', sans-serif; color: var(--text-main); }
+        .section-title { text-align: center; font-size: clamp(26px, 4vw, 38px); margin-bottom: 16px; font-weight: 700; letter-spacing: -0.5px; }
         .section-title span { color: var(--primary); }
-        .section-subtitle { text-align: center; color: var(--text-muted); max-width: 700px; margin: 0 auto 50px auto; font-size: 16px; line-height: 1.6; }
-        
-        /* Navbar */
-        header { position: fixed; top: 0; width: 100%; background: rgba(4, 8, 15, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); z-index: 1000; border-bottom: 1px solid var(--glass-border); }
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 18px 5%; max-width: 1200px; margin: 0 auto; }
-        .logo { font-size: 26px; font-weight: 700; background: linear-gradient(90deg, #10b981, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .section-subtitle { text-align: center; color: var(--text-muted); max-width: 640px; margin: 0 auto 50px auto; font-size: 15.5px; line-height: 1.7; }
+
+        /* \u2500\u2500\u2500 NAVBAR \u2500\u2500\u2500 */
+        header { position: fixed; top: 0; width: 100%; background: rgba(3,11,20,0.92); backdrop-filter: blur(16px); z-index: 1000; border-bottom: 1px solid var(--glass-border); }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 5%; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 800; background: linear-gradient(90deg, #00e5a0, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 14.5px; transition: color 0.3s; }
         .nav-links a:hover { color: var(--primary); }
-        .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; }
+        .nav-cta { background: var(--primary) !important; color: #000 !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; font-size: 14px !important; -webkit-text-fill-color: #000 !important; }
+        .menu-toggle { display: none; font-size: 26px; cursor: pointer; color: white; }
 
-        /* Trust Banner */
-        .trust-banner { background: linear-gradient(90deg, rgba(16,185,129,0.1) 0%, rgba(59,130,246,0.1) 100%); border-bottom: 1px solid var(--glass-border); padding: 10px 0; text-align: center; font-size: 14px; font-weight: 500; color: #cbd5e1; margin-top: 70px; }
-        .trust-banner span { color: var(--primary); font-weight: 600; }
+        /* \u2500\u2500\u2500 TRUST BANNER \u2500\u2500\u2500 */
+        .trust-banner {
+            background: linear-gradient(90deg, rgba(0,229,160,0.08), rgba(59,130,246,0.08));
+            border-bottom: 1px solid var(--glass-border);
+            padding: 10px 0; text-align: center;
+            font-size: 13.5px; font-weight: 500; color: #94aec8;
+            margin-top: 65px; position: relative; z-index: 1;
+        }
+        .trust-banner span { color: var(--primary); font-weight: 700; }
 
-        /* Buttons */
-        .btn { display: inline-flex; justify-content: center; align-items: center; padding: 15px 30px; background: var(--primary); color: white; text-decoration: none; border-radius: 10px; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; width: 100%; font-size: 16px; }
-        .btn:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3); }
-
-        /* Hero & Form */
-        .hero { display: flex; align-items: center; gap: 60px; min-height: 85vh; padding-top: 50px; }
+        /* \u2500\u2500\u2500 HERO \u2500\u2500\u2500 */
+        .hero { display: flex; align-items: center; gap: 60px; min-height: 88vh; padding-top: 40px; }
         .hero-content { flex: 1; }
-        .hero-content h1 { font-size: clamp(34px, 5vw, 64px); line-height: 1.15; margin-bottom: 20px; }
-        .hero-content p { font-size: 17px; color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
-        
-        .form-box { flex: 1; background: var(--glass-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); padding: 40px; border-radius: 20px; max-width: 480px; width: 100%; }
-        .input-group { margin-bottom: 22px; position: relative; }
-        .input-group label { display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-muted); font-weight: 500; }
-        .form-control { width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--glass-border); background: #0f172a; color: white; outline: none; font-size: 15px; appearance: none; }
-        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--focus-ring); background: #1e293b; }
-        select.form-control { background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 12px auto; }
-        select option { background: #0f172a; color: white; padding: 10px; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--primary-dim); border: 1px solid rgba(0,229,160,0.3); color: var(--primary); padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.3px; }
+        .hero-badge::before { content: '\u25cf'; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+        .hero-content h1 { font-size: clamp(32px, 5vw, 60px); line-height: 1.12; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero-content h1 .line2 { background: linear-gradient(90deg, #00e5a0, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-content p { font-size: 16.5px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7; max-width: 520px; }
+        .hero-stats { display: flex; gap: 30px; flex-wrap: wrap; }
+        .stat { text-align: left; }
+        .stat-num { font-family: 'Sora', sans-serif; font-size: 26px; font-weight: 800; color: var(--primary); line-height: 1; }
+        .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
 
-        /* Bank Logos Marquee */
-        .marquee-wrapper { background: var(--bg-light); padding: 40px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); overflow: hidden; white-space: nowrap; position: relative; }
-        .marquee-wrapper::before, .marquee-wrapper::after { content: ""; position: absolute; top: 0; width: 100px; height: 100%; z-index: 2; }
-        .marquee-wrapper::before { left: 0; background: linear-gradient(to right, var(--bg-light), transparent); }
-        .marquee-wrapper::after { right: 0; background: linear-gradient(to left, var(--bg-light), transparent); }
-        .marquee-content { display: inline-block; animation: scroll 20s linear infinite; }
-        .bank-logo { display: inline-block; padding: 15px 30px; margin: 0 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 8px; color: #cbd5e1; font-weight: 600; font-size: 18px; letter-spacing: 1px; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* Motive / About Us */
-        .motive-section { text-align: center; }
-        .motive-box { background: linear-gradient(145deg, rgba(16,185,129,0.05), transparent); border: 1px solid var(--primary); padding: 40px; border-radius: 20px; max-width: 900px; margin: 0 auto; }
-        .motive-box h3 { font-size: 24px; margin-bottom: 15px; }
-        .motive-box p { color: var(--text-muted); font-size: 16px; line-height: 1.8; }
-
-        /* Testimonials (Psychological Effect) */
-        .testimonials { background: var(--bg-light); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .testi-card { background: var(--bg-dark); border: 1px solid var(--glass-border); padding: 30px; border-radius: 16px; }
-        .stars { color: #fbbf24; font-size: 20px; margin-bottom: 15px; }
-        .testi-text { color: var(--text-muted); font-size: 15px; font-style: italic; line-height: 1.6; margin-bottom: 20px; }
-        .client-info { display: flex; align-items: center; gap: 15px; }
-        .client-avatar { width: 50px; height: 50px; background: var(--primary); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 20px; }
-        .client-name { font-weight: 600; font-size: 16px; }
-        .client-role { font-size: 12px; color: #64748b; }
-
-        @media (max-width: 900px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 30px; }
-            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: var(--bg-dark); padding: 20px; border-bottom: 1px solid var(--glass-border); }
-            .nav-links.active { display: flex; }
-            .menu-toggle { display: block; }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <nav>
-            <div class="logo">Surence</div>
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home" onclick="toggleMenu()">Home</a></li>
-                <li><a href="#about" onclick="toggleMenu()">Who We Are</a></li>
-                <li><a href="#reviews" onclick="toggleMenu()">Reviews</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="trust-banner">
-        🛡️ Authorized DSA Partner with <span>50+ Top Banks & NBFCs</span> across India
-    </div>
-
-    <section id="home" class="hero container">
-        <div class="hero-content">
-            <h1>India's Most Trusted <span>Loan Aggregator</span></h1>
-            <p>Why visit multiple banks when we can bring the best offers to you? As official DSA partners, we map your profile with India's top lenders to guarantee the lowest interest rates and fastest approvals.</p>
-        </div>
-
-        <div class="form-box">
-            <h2 style="margin-bottom: 25px; font-size: 24px;">Check Eligibility</h2>
-            <form id="leadForm" onsubmit="submitLead(event)">
-                <div class="input-group">
-                    <label>Full Name (As per PAN)</label>
-                    <input type="text" id="leadName" class="form-control" placeholder="E.g. Rahul Sharma" required>
-                </div>
-                <div class="input-group">
-                    <label>Mobile Number</label>
-                    <input type="tel" id="leadPhone" class="form-control" placeholder="10-digit number" required maxlength="10">
-                </div>
-                <div class="input-group">
-                    <label>Loan Type Required</label>
-                    <select id="leadLoan" class="form-control">
-                        <option value="Personal Loan">Personal Loan</option>
-                        <option value="Business Loan">Business Loan</option>
-                        <option value="Home Loan">Home Loan</option>
-                    </select>
-                </div>
-                <button type="submit" id="submitBtn" class="btn">Apply Securely</button>
-            </form>
-        </div>
-    </section>
-
-    <div class="marquee-wrapper">
-        <div class="marquee-content">
-            <span class="bank-logo">HDFC Bank</span>
-            <span class="bank-logo">ICICI Bank</span>
-            <span class="bank-logo">Bajaj Finserv</span>
-            <span class="bank-logo">Axis Bank</span>
-            <span class="bank-logo">Tata Capital</span>
-            <span class="bank-logo">Kotak Mahindra</span>
-            <span class="bank-logo">IDFC First</span>
-            
-            <span class="bank-logo">HDFC Bank</span>
-            <span class="bank-logo">ICICI Bank</span>
-            <span class="bank-logo">Bajaj Finserv</span>
-            <span class="bank-logo">Axis Bank</span>
-            <span class="bank-logo">Tata Capital</span>
-            <span class="bank-logo">Kotak Mahindra</span>
-            <span class="bank-logo">IDFC First</span>
-        </div>
-    </div>
-
-    <section id="about" class="container motive-section">
-        <h2 class="section-title">Why Are You <span>Here?</span></h2>
-        <p class="section-subtitle">Navigating the loan market alone is confusing, slow, and often leads to rejections that damage your CIBIL score. That's where we step in.</p>
-        
-        <div class="motive-box">
-            <h3>We Are Your Financial Bridge 🌉</h3>
-            <p>Surence is not just another lender. We are premier Direct Selling Agents (DSAs) partnered with India's top financial institutions. <strong>Our motive is simple:</strong> To save your time and money. Instead of you applying to 10 different banks and getting rejected, you apply once with us. Our expert team analyzes your profile and directly forwards your file to the specific bank or NBFC that is most likely to approve it at the lowest interest rate. We do the heavy lifting, you get the funds.</p>
-        </div>
-    </section>
-
-    <section id="reviews" class="testimonials container" style="padding-bottom: 100px;">
-        <h2 class="section-title">What Our Clients <span>Say</span></h2>
-        <p class="section-subtitle">Join thousands of happy customers who secured their financial future with Surence.</p>
-        
-        <div class="grid">
-            <div class="testi-card">
-                <div class="stars">★★★★★</div>
-                <p class="testi-text">"I was struggling to get a business loan due to some minor CIBIL issues. The team at Surence matched my profile with an NBFC I hadn't even heard of. Got 15 Lakhs disbursed in 3 days!"</p>
-                <div class="client-info">
-                    <div class="client-avatar">V</div>
-                    <div>
-                        <div class="client-name">Vikram S.</div>
-                        <div class="client-role">Business Owner, Delhi</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testi-card">
-                <div class="stars">★★★★★</div>
-                <p class="testi-text">"Very transparent process. They explained exactly why HDFC would be better for my home loan than my salary account bank. Saved me a lot on interest rates. Highly recommended."</p>
-                <div class="client-info">
-                    <div class="client-avatar">P</div>
-                    <div>
-                        <div class="client-name">Pooja M.</div>
-                        <div class="client-role">IT Professional, Bangalore</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testi-card">
-                <div class="stars">★★★★★</div>
-                <p class="testi-text">"No hidden charges, no fake promises. Applied for a personal loan of 5 Lakhs for a medical emergency. The amount was in my account within 24 hours. They are true lifesavers."</p>
-                <div class="client-info">
-                    <div class="client-avatar">R</div>
-                    <div>
-                        <div class="client-name">Rajesh K.</div>
-                        <div class="client-role">Teacher, Mumbai</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-        function toggleMenu() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
-
-        function submitLead(event) {
-            event.preventDefault();
-            const name = document.getElementById("leadName").value.trim();
-            const phone = document.getElementById("leadPhone").value.trim();
-            const loan = document.getElementById("leadLoan").value;
-            const btn = document.getElementById("submitBtn");
-
-            const phoneRegex = /^[6-9]\d{9}$/;
-            if (!phoneRegex.test(phone)) {
-                alert("Please enter a valid 10-digit Indian mobile number.");
-                return;
-            }
-
-            btn.disabled = true;
-            btn.innerText = "Processing securely...";
-
-            const message = `*🔔 SECURE LEAD | SURENCE DSA* \n\n*👤 Name:* ${name}\n*📞 Phone:* +91-${phone}\n*💼 Loan:* ${loan}\n*🌐 Source:* Official Website`;
-            
-            setTimeout(() => {
-                window.open(`https://wa.me/918969881194?text=${encodeURIComponent(message)}`, "_blank");
-                btn.disabled = false;
-                btn.innerText = "Apply Securely";
-                document.getElementById("leadForm").reset();
-            }, 800);
-        }
-    </script>
-</body>
-</html>
+        /* \u2500\u2500\u2500 FORM BOX \u2500\u2500\u2500 */
+        .form-box { flex: 1; background: var(--glass-bg); backdrop-filter: blur(24px); border: 1px solid var(--glass-border); padding: 38px; border-radius: 24px; max-width: 460px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06); }
+        .form-title { font-family: '
