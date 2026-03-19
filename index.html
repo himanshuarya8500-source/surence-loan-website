@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surence Pvt Ltd | Official DSA Partner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* GLOBAL FIX FOR OVERLAPPING HEADER */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Yeh header ke overlap ko rokenge */
+        }
+
+        :root {
+            --bg-dark: #030b14; --bg-mid: #071525; --bg-light: #0c1e30;
+            --primary: #00e5a0; --primary-dim: rgba(0,229,160,0.12); --primary-hover: #00c98a;
+            --text-main: #f0f6ff; --text-muted: #7a94b0;
+            --glass-bg: rgba(7, 21, 37, 0.85); --glass-border: rgba(255,255,255,0.07);
+            --focus-ring: rgba(0,229,160,0.2); --card-bg: rgba(12,30,48,0.6);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-dark); color: var(--text-main); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 60px 5%; position: relative; z-index: 1; }
+        h1, h2, h3 { font-family: 'Sora', sans-serif; color: var(--text-main); }
+        .section-title { text-align: center; font-size: clamp(26px, 4vw, 38px); margin-bottom: 16px; font-weight: 700; }
+        .section-title span { color: var(--primary); }
+        .section-subtitle { text-align: center; color: var(--text-muted); max-width: 640px; margin: 0 auto 50px auto; font-size: 15.5px; line-height: 1.7; }
+
+        /* Navbar */
+        header { position: fixed; top: 0; width: 100%; background: rgba(3,11,20,0.98); backdrop-filter: blur(16px); z-index: 1000; border-bottom: 1px solid var(--glass-border); height: 75px; display: flex; align-items: center; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 0 5%; width: 100%; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: 'Sora', sans-serif; font-size: 24px; font-weight: 800; color: var(--primary); text-decoration: none; }
+        
+        .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta { background: var(--primary) !important; color: #000 !important; padding: 10px 22px; border-radius: 8px; font-weight: 700 !important; }
+        .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: white; user-select: none; }
+
+        /* Mobile Menu Fixes */
+        @media (max-width: 900px) {
+            .menu-toggle { display: block; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 75px; left: 0; width: 100%; background: #030b14; padding: 20px 0; border-bottom: 1px solid var(--glass-border); box-shadow: 0 15px 25px rgba(0,0,0,0.6); }
+            .nav-links.active { display: flex; }
+            .nav-links li { width: 100%; text-align: center; padding: 12px 0; }
+            .nav-links a { display: block; font-size: 16px; width: 100%; }
+            .nav-cta { display: inline-block; width: auto; margin-top: 10px; }
+        }
+
+        /* Trust Banner */
+        .trust-banner { background: linear-gradient(90deg, rgba(0,229,160,0.08), rgba(59,130,246,0.08)); border-bottom: 1px solid var(--glass-border); padding: 10px 0; text-align: center; font-size: 13.5px; font-weight: 500; color: #94aec8; margin-top: 75px; }
+
+        /* Hero */
+        .hero { display: flex; align-items: center; gap: 60px; min-height: 80vh; padding-top: 40px; }
+        .hero-content { flex: 1; }
+        .hero-content h1 { font-size: clamp(32px, 5vw, 60px); line-height: 1.12; margin-bottom: 20px; }
+        .hero-content p { font-size: 16.5px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.7; }
+        
+        /* Form & Urgency */
+        .form-box { flex: 1; background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 38px; border-radius: 24px; max-width: 460px; width: 100%; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; }
+        .urgency-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #ef4444; color: white; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; white-space: nowrap; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.7); } 70% { box-shadow: 0 0 0 10px rgba(239,68,68,0); } 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); } }
+        
+        .form-title { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; margin-bottom: 20px; text-align: center; }
+        .input-group { margin-bottom: 18px; }
+        .input-group label { display: block; margin-bottom: 7px; font-size: 13px; color: var(--text-muted); font-weight: 500; }
+        .form-control { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--glass-border); background: rgba(3,11,20,0.6); color: white; outline: none; font-size: 14.5px; appearance: none; }
+        .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 4px var(--focus-ring); }
+        select.form-control { background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a94b0' d='M1 1l5 5 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+        select option { background: #0c1e30; }
+        .btn { width: 100%; padding: 15px; background: var(--primary); color: #000; border: none; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.3s; font-family: 'Sora', sans-serif; }
+        .btn:hover { background: var(--primary-hover); transform: translateY(-2px); }
+
+        /* Floating Logos */
+        .marquee-wrapper { background: var(--bg-mid); padding: 30px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: scroll 20s linear infinite; }
+        .bank-logo { display: inline-block; padding: 12px 25px; margin: 0 15px; background: rgba(255,255,255,0.03); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-muted); font-weight: 600; font-size: 16px; backdrop-filter: blur(5px); transition: 0.3s; }
+        .bank-logo:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-3px); }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Psychological Triggers / Story */
+        #story { background: var(--bg-dark); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .story-card { background: linear-gradient(180deg, var(--card-bg), rgba(3,11,20,0)); border: 1px solid var(--glass-border); border-top: 2px solid var(--primary); padding: 30px; border-radius: 16px; transition: 0.3s; }
+        .story-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,229,160,0.1); }
+        .story-icon { font-size: 40px; margin-bottom: 15px; }
+        .story-card h3 { font-size: 20px; margin-bottom: 10px; }
+        .story-card p { color: var(--text-muted); font-size: 14.5px; line-height: 1.6; }
+
+        /* EMI Calculator */
+        #emi { background: var(--bg-mid); }
+        .calculator-wrapper { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 40px; border-radius: 20px; display: flex; gap: 40px; flex-wrap: wrap; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .calc-inputs { flex: 1.2; min-width: 300px; }
+        .calc-results { flex: 1; min-width: 250px; background: rgba(0,229,160,0.05); padding: 40px 30px; border-radius: 16px; text-align: center; border: 1px solid rgba(0,229,160,0.2); display: flex; flex-direction: column; justify-content: center; }
+        .result-value { font-size: 46px; font-weight: 800; color: var(--primary); margin: 15px 0; font-family: 'Sora', sans-serif; }
+
+        /* Reviews */
+        #reviews { background: var(--bg-dark); }
+        .testi-card { background: var(--card-bg); border: 1px solid var(--glass-border); padding: 30px; border-radius: 16px; }
+        .stars { color: #fbbf24; margin-bottom: 15px; font-size: 18px; }
+        .testi-text { color: var(--text-muted); font-size: 15px; font-style: italic; margin-bottom: 20px; line-height: 1.6; }
+        .client-info { display: flex; align-items: center; gap: 15px; }
+        .client-avatar { width: 45px; height: 45px; background: var(--primary); color: #000; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 18px; }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            z-index: 9999;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+        .whatsapp-fab:hover {
+            transform: scale(1.1);
+        }
+        .whatsapp-fab svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        footer { background: #02070d; border-top: 1px solid var(--glass-border); padding: 30px 5%; text-align: center; }
+        
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; padding-top: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="#" class="logo">Surence</a>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" onclick="closeMenu()">Home</a></li>
+            <li><a href="#story" onclick="closeMenu()">Why Us</a></li>
+            <li><a href="#emi" onclick="closeMenu()">EMI Calculator</a></li>
+            <li><a href="#reviews" onclick="closeMenu()">Reviews</a></li>
+            <li><a href="#home" class="nav-cta" onclick="closeMenu()">Apply Now</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="trust-banner">
+    🛡️ Authorized DSA Partner with <span>50+ Top Banks & NBFCs</span> across India
+</div>
+
+<section id="home" class="hero container">
+    <div class="hero-content">
+        <h1>Fast Funds for Your <span style="color: var(--primary);">Biggest Goals</span></h1>
+        <p>Skip the bank queues and heavy paperwork. Map your profile directly with top lenders for the lowest interest rates and 24-hour approvals.</p>
+    </div>
+
+    <div class="form-box">
+        <div class="urgency-badge">🔥 <span id="applyCount">25</span> people applied in last 1 hour</div>
+        <div class="form-title">Check Eligibility</div>
+        <form id="leadForm" onsubmit="submitLead(event)">
+            <div class="input-group">
+                <label>Full Name (As per PAN)</label>
+                <input type="text" id="leadName" class="form-control" placeholder="E.g. Rahul Sharma" required>
+            </div>
+            <div class="input-group">
+                <label>Mobile Number</label>
+                <input type="tel" id="leadPhone" class="form-control" placeholder="10-digit number" required pattern="[6-9][0-9]{9}" maxlength="10">
+            </div>
+            <div class="input-group">
+                <label>Loan Type</label>
+                <select id="leadLoan" class="form-control">
+                    <option>Personal Loan</option>
+                    <option>Business Loan</option>
+                    <option>Home Loan</option>
+                    <option>Loan Against Property</option>
+                </select>
+            </div>
+            <button type="submit" id="submitBtn" class="btn">Apply Securely Now</button>
+        </form>
+    </div>
+</section>
+
+<div class="marquee-wrapper">
+    <div class="marquee-content">
+        <span class="bank-logo">HDFC Bank</span><span class="bank-logo">ICICI Bank</span><span class="bank-logo">Bajaj Finserv</span>
+        <span class="bank-logo">Axis Bank</span><span class="bank-logo">Tata Capital</span><span class="bank-logo">Kotak Mahindra</span>
+        <span class="bank-logo">IDFC First</span><span class="bank-logo">L&T Finance</span><span class="bank-logo">Muthoot Finance</span>
+        <span class="bank-logo">HDFC Bank</span><span class="bank-logo">ICICI Bank</span><span class="bank-logo">Bajaj Finserv</span>
+        <span class="bank-logo">Axis Bank</span><span class="bank-logo">Tata Capital</span><span class="bank-logo">Kotak Mahindra</span>
+    </div>
+</div>
+
+<section id="story" class="container">
+    <h2 class="section-title">Because Life is <span>Unpredictable</span></h2>
+    <p class="section-subtitle">Financial needs don't come with a warning. When life happens, Surence stands by your side with instant funds.</p>
+    
+    <div class="grid">
+        <div class="story-card">
+            <div class="story-icon">🏥</div>
+            <h3>Medical Emergencies</h3>
+            <p>Don't let lack of funds delay critical healthcare. Get instant liquidity to focus on what matters most — saving lives and family.</p>
+        </div>
+        <div class="story-card">
+            <div class="story-icon">💍</div>
+            <h3>A Dream Wedding</h3>
+            <p>From booking the perfect venue to catering. Secure the funds you need instantly to give your loved ones the wedding they deserve.</p>
+        </div>
+        <div class="story-card">
+            <div class="story-icon">📉</div>
+            <h3>Sudden Business Crises</h3>
+            <p>Has your cash flow stopped? Need working capital instantly to pay vendors or staff? We fast-track business loans to save your reputation.</p>
+        </div>
+    </div>
+</section>
+
+<section id="emi">
+    <div class="container">
+        <h2 class="section-title">Plan Your <span>Repayment</span></h2>
+        <p class="section-subtitle">No hidden charges. Know exactly how much you need to pay every month.</p>
+        
+        <div class="calculator-wrapper">
+            <div class="calc-inputs">
+                <div class="input-group">
+                    <label>Loan Amount: ₹<span id="amountVal">500000</span></label>
+                    <input type="range" id="calcAmount" min="50000" max="5000000" step="10000" value="500000" style="width: 100%;" oninput="updateEmi()">
+                </div>
+                <div class="input-group" style="margin-top: 30px;">
+                    <label>Interest Rate (P.A.): <span id="rateVal">10.5</span>%</label>
+                    <input type="range" id="calcRate" min="8" max="24" step="0.1" value="10.5" style="width: 100%;" oninput="updateEmi()">
+                </div>
+                <div class="input-group" style="margin-top: 30px;">
+                    <label>Tenure (Months): <span id="monthVal">60</span></label>
+                    <input type="range" id="calcMonths" min="12" max="120" step="6" value="60" style="width: 100%;" oninput="updateEmi()">
+                </div>
+            </div>
+            <div class="calc-results">
+                <h3 style="color: var(--text-muted); font-size: 16px;">Monthly EMI</h3>
+                <div class="result-value" id="emiResult">₹10,747</div>
+                <button class="btn" onclick="window.location.href='#home'" style="margin-top: 20px;">Apply For This Amount</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="reviews" class="container">
+    <h2 class="section-title">Trusted by <span>Thousands</span></h2>
+    <div class="grid">
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text">"My father needed an urgent bypass surgery and insurance wasn't covering it all. Surence got me a 5 Lakh personal loan approved in 12 hours. Lifesavers!"</p>
+            <div class="client-info">
+                <div class="client-avatar">A</div>
+                <div><div style="font-weight: 700;">Amit Verma</div><div style="font-size: 12px; color: var(--text-muted);">Medical Loan</div></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text">"I was tired of visiting banks for my factory's working capital. Applied here once, they mapped me with Tata Capital and got me the lowest rate. Super smooth."</p>
+            <div class="client-info">
+                <div class="client-avatar">M</div>
+                <div><div style="font-weight: 700;">Mohd. Tariq</div><div style="font-size: 12px; color: var(--text-muted);">Business Loan</div></div>
+            </div>
+        </div>
+        <div class="testi-card">
+            <div class="stars">★★★★★</div>
+            <p class="testi-text">"Sister's wedding was in 15 days and we fell short on cash. The transparency and speed of the Surence team is unmatched. Highly recommended."</p>
+            <div class="client-info">
+                <div class="client-avatar">S</div>
+                <div><div style="font-weight: 700;">Sneha Patil</div><div style="font-size: 12px; color: var(--text-muted);">Personal Loan</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<a href="https://wa.me/918969881194?text=Hi%20Surence,%20I%20want%20to%20apply%20for%20a%20loan." class="whatsapp-fab" target="_blank">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+    </svg>
+</a>
+
+<footer style="color: var(--text-muted); font-size: 14px;">
+    <p>&copy; 2026 Surence Pvt Ltd. All Rights Reserved. Authorized DSA.</p>
+</footer>
+
+<script>
+    // FIX: Rock-Solid Mobile Menu Logic
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    function closeMenu() {
+        document.getElementById('navLinks').classList.remove('active');
+    }
+
+    // EMI Calculator Logic
+    function updateEmi() {
+        const P = document.getElementById('calcAmount').value;
+        const R = document.getElementById('calcRate').value;
+        const N = document.getElementById('calcMonths').value;
+        
+        document.getElementById('amountVal').innerText = parseInt(P).toLocaleString('en-IN');
+        document.getElementById('rateVal').innerText = R;
+        document.getElementById('monthVal').innerText = N;
+
+        const ratePerMonth = (R / 12) / 100;
+        const emi = (P * ratePerMonth * Math.pow(1 + ratePerMonth, N)) / (Math.pow(1 + ratePerMonth, N) - 1);
+        
+        document.getElementById('emiResult').innerText = "₹" + Math.round(emi).toLocaleString('en-IN');
+    }
+    
+    // Init calc
+    updateEmi();
+
+    // Fake Urgency Counter Logic
+    let count = 25;
+    setInterval(() => {
+        if(Math.random() > 0.6) {
+            count++;
+            document.getElementById('applyCount').innerText = count;
+        }
+    }, 8000);
+
+    // Form Submission
+    function submitLead(event) {
+        event.preventDefault();
+        const name = document.getElementById("leadName").value.trim();
+        const phone = document.getElementById("leadPhone").value.trim();
+        const loan = document.getElementById("leadLoan").value;
+        const btn = document.getElementById("submitBtn");
+
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+
+        const message = `*🔥 URGENT LEAD | SURENCE* \n\n*👤 Name:* ${name}\n*📞 Phone:* +91-${phone}\n*💼 Loan Need:* ${loan}\n\n_Please process immediately._`;
+        
+        setTimeout(() => {
+            window.open(`https://wa.me/918969881194?text=${encodeURIComponent(message)}`, "_blank");
+            btn.disabled = false;
+            btn.innerText = "Apply Securely Now";
+        }, 1000);
+    }
+</script>
+</body>
+</html>
