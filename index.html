@@ -312,34 +312,4 @@
 
     // Fake Urgency Counter Logic
     let count = 25;
-    setInterval(() => {
-        if(Math.random() > 0.6) {
-            count++;
-            document.getElementById('applyCount').innerText = count;
-        }
-    }, 8000);
-
-    // Form Submission (WhatsApp Routing)
-    function submitLead(event) {
-        event.preventDefault();
-        const name = document.getElementById("leadName").value.trim();
-        const phone = document.getElementById("leadPhone").value.trim();
-        const loan = document.getElementById("leadLoan").value;
-        const btn = document.getElementById("submitBtn");
-
-        btn.disabled = true;
-        btn.innerText = "Processing...";
-
-        const message = `*🔥 URGENT LEAD | SURENCE* \n\n*👤 Name:* ${name}\n*📞 Phone:* +91-${phone}\n*💼 Loan Need:* ${loan}\n\n_Please process immediately._`;
-        
-        setTimeout(() => {
-            window.open(`https://wa.me/918969881194?text=${encodeURIComponent(message)}`, "_blank");
-            btn.disabled = false;
-            btn.innerText = "Apply Securely Now";
-        }, 1000);
-    }
-</script>
-</body>
-</html>
-
-
+ 
